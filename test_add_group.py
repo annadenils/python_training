@@ -6,6 +6,7 @@ from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import unittest, time, re
+from group import Group
 
 class TestAddGroup(unittest.TestCase):
     def setUp(self):
@@ -27,17 +28,17 @@ class TestAddGroup(unittest.TestCase):
     def open_groups_page(self, wd):
         wd.find_element_by_link_text("groups").click()
 
-    def init_group(self, wd, group_name, header, comment):
+    def init_group(self, wd, group):
         wd.find_element_by_name("new").click()
         wd.find_element_by_name("group_name").click()
         wd.find_element_by_name("group_name").clear()
-        wd.find_element_by_name("group_name").send_keys("%s" % group_name)
+        wd.find_element_by_name("group_name").send_keys(group.group_name)
         wd.find_element_by_name("group_header").click()
         wd.find_element_by_name("group_header").clear()
-        wd.find_element_by_name("group_header").send_keys("%s" % header)
+        wd.find_element_by_name("group_header").send_keys(group.header)
         wd.find_element_by_name("group_footer").click()
         wd.find_element_by_name("group_footer").clear()
-        wd.find_element_by_name("group_footer").send_keys("%s" % comment)
+        wd.find_element_by_name("group_footer").send_keys(group.comment)
         wd.find_element_by_name("submit").click()
 
     def return_to_groups_page(self, wd):
@@ -51,7 +52,7 @@ class TestAddGroup(unittest.TestCase):
         self.open_home_page(wd)
         self.login(wd, user_name="admin", password="secret")
         self.open_groups_page(wd)
-        self.init_group(wd, group_name="new_group", header="logo", comment="comment")
+        self.init_group(wd, Group(group_name="new_group", header="logo", comment="comment"))
         self.return_to_groups_page(wd)
         self.logout(wd)
 
@@ -60,7 +61,7 @@ class TestAddGroup(unittest.TestCase):
         self.open_home_page(wd)
         self.login(wd, user_name="admin", password="secret")
         self.open_groups_page(wd)
-        self.init_group(wd, group_name="", header="", comment="")
+        self.init_group(wd, Group(group_name="", header="", comment=""))
         self.return_to_groups_page(wd)
         self.logout(wd)
 
