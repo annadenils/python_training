@@ -1,8 +1,8 @@
 import pytest
-from fixture.application_group import Application_group
+from fixture.application import Application
 
 @pytest.fixture
 def app(request):
-    fixture = Application_group()
+    fixture = Application()
     request.addfinalizer(fixture.destroy)
     return fixture

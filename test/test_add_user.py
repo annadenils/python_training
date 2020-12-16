@@ -1,13 +1,5 @@
 # -*- coding: utf-8 -*-
-import pytest
 from model.users import Users
-from fixture.application_user import Application_user
-
-@pytest.fixture
-def app(request):
-    fixture = Application_user()
-    request.addfinalizer(fixture.destroy)
-    return fixture
 
 def test_add_user(app):
     app.session.login(login_name="admin", password="secret")
