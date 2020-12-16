@@ -14,5 +14,6 @@ class Application_group():
         wd = self.wd
         wd.get("http://127.0.0.1/addressbook/index.php")
 
+
     def destroy(self):
         self.wd.quit()
