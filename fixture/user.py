@@ -1,10 +1,10 @@
 from selenium.webdriver.support.ui import Select
 
+
 class UserHelper:
 
     def __init__(self, app):
         self.app = app
-
 
     def add_new_user(self, users):
         wd = self.app.wd
@@ -109,13 +109,3 @@ class UserHelper:
         wd.find_element_by_name("address2").send_keys(users.address2)
         wd.find_element_by_name("update").click()
         self.app.return_homepage()
-
-
-
-
-
-
-
-
-
-
