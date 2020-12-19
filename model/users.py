@@ -15,3 +15,8 @@ class Users():
         self.bmonth = bmonth
         self.bday = bday
         self.address2 = address2
+
+class EditUsers():
+    def __init__(self, new_users_name, new_name_company):
+        self.new_users_name = new_users_name
+        self.new_name_company = new_name_company

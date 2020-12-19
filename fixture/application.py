@@ -12,6 +12,7 @@ class Application():
         self.user = UserHelper(self)
         self.group = GroupHelper(self)
 
+
     def open_home_page(self):
         wd = self.wd
         wd.get("http://127.0.0.1/addressbook/index.php")
