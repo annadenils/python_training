@@ -1,5 +1,5 @@
 class Users():
-    def __init__(self, users_lastname, users_middlename, users_name, nickname, address_company, name_company, fax, work_phone, mobile_phone, home_phone, email, byear, bmonth, bday, address2):
+    def __init__(self, users_lastname = None, users_middlename = None, users_name = None, nickname = None, address_company = None, name_company = None, fax = None, work_phone = None, mobile_phone = None, home_phone = None, email = None, byear = None, bmonth = None, bday = None, address2 = None):
         self.users_lastname = users_lastname
         self.users_middlename = users_middlename
         self.users_name = users_name
@@ -16,7 +16,3 @@ class Users():
         self.bday = bday
         self.address2 = address2
 
-class EditUsers():
-    def __init__(self, new_users_name, new_name_company):
-        self.new_users_name = new_users_name
-        self.new_name_company = new_name_company
