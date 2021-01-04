@@ -21,7 +21,8 @@ class Application():
 
     def open_home_page(self):
         wd = self.wd
-        wd.get("http://127.0.0.1/addressbook/index.php")
+        if not (wd.current_url.endswith("/index.php")):
+            wd.get("http://127.0.0.1/addressbook/index.php")
 
     def return_homepage(self):
         wd = self.wd
