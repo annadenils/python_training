@@ -57,3 +57,7 @@ class UserHelper:
         self.change_value("company", users.name_company)
         wd.find_element_by_name("update").click()
         self.app.return_homepage()
+
+    def count(self):
+        wd = self.app.wd
+        return len(wd.find_elements_by_name("selected[]"))
