@@ -1,4 +1,5 @@
 from selenium.webdriver.support.ui import Select
+from model.users import Users
 
 
 class UserHelper:
@@ -49,6 +50,8 @@ class UserHelper:
         wd.find_element_by_name("selected[]").click()
         wd.find_element_by_xpath("/html/body/div/div[4]/form[2]/div[2]/input").click()
         wd.switch_to_alert().accept()
+        wd.find_element_by_css_selector("div.msgbox")
+        self.app.open_home_page()
 
     def edit_user(self, users):
         wd = self.app.wd
@@ -61,3 +64,12 @@ class UserHelper:
     def count(self):
         wd = self.app.wd
         return len(wd.find_elements_by_name("selected[]"))
+
+    def get_users_list(self):
+        wd = self.app.wd
+        users = []
+        for element in wd.find_elements_by_css_selector("tr")[1:]:
+            text = element.text
+            id = element.find_element_by_css_selector("td")
+            users.append(Users(users_name=text, id=id))
+        return users
