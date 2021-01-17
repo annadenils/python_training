@@ -69,7 +69,7 @@ class UserHelper:
         wd = self.app.wd
         users = []
         for element in wd.find_elements_by_css_selector("tr")[1:]:
-            text = element.text
-            id = element.find_element_by_css_selector("td")
-            users.append(Users(users_name=text, id=id))
+            id = element.find_element_by_name("selected[]").get_attribute("id")
+            users_name = element.find_element_by_xpath("/html/body/div/div[4]/form[2]/table/tbody/tr[2]/td[3]").text
+            users.append(Users(users_name=users_name, id=id))
         return users
