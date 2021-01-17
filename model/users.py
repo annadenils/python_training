@@ -20,10 +20,10 @@ class Users():
         self.id = id
 
     def __repr__(self):
-        return "%s:%s" % (self.id, self.users_name)
+        return "%s:%s:%s" % (self.id, self.users_name, self.users_lastname)
 
     def __eq__(self, other):
-        return (self.id is None or other.id is None or self.id == other.id) and self.users_name == other.users_name
+        return (self.id is None or other.id is None or self.id == other.id) and (self.users_name is None or other.users_name is None or self.users_name == other.users_name) and (self.users_lastname is None or other.users_lastname is None or self.users_lastname == other.users_lastname)
 
     def id_or_max(self):
         if self.id:

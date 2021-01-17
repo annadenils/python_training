@@ -67,9 +67,11 @@ class UserHelper:
 
     def get_users_list(self):
         wd = self.app.wd
+        self.app.open_home_page()
         users = []
-        for element in wd.find_elements_by_css_selector("tr")[1:]:
+        for element in wd.find_elements_by_name("entry"):
             id = element.find_element_by_name("selected[]").get_attribute("id")
-            users_name = element.find_element_by_xpath("/html/body/div/div[4]/form[2]/table/tbody/tr[2]/td[3]").text
-            users.append(Users(users_name=users_name, id=id))
+            users_name = element.find_element_by_xpath("td[3]").text
+            users_lastname = element.find_element_by_xpath("td[2]").text
+            users.append(Users(id=id, users_name=users_name, users_lastname=users_lastname))
         return users
