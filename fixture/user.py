@@ -61,7 +61,8 @@ class UserHelper:
 
     def edit_user_by_index(self, index, users):
         wd = self.app.wd
-        wd.find_element_by_xpath(f"/html/body/div/div[4]/form[2]/table/tbody/tr[{index+2}]/td[8]/a/img").click()
+        self.app.open_home_page()
+        wd.find_elements_by_xpath("//img[@title='Edit']")[index].click()
         self.change_value("firstname", users.users_name)
         self.change_value("company", users.name_company)
         wd.find_element_by_name("update").click()
