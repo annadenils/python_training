@@ -1,5 +1,6 @@
 from selenium.webdriver.support.ui import Select
 from model.users import Users
+import re
 
 
 class UserHelper:
@@ -114,3 +115,13 @@ class UserHelper:
         mobile_phone = wd.find_element_by_name("mobile").get_attribute("value")
         phone2 = wd.find_element_by_name("phone2").get_attribute("value")
         return Users(users_name=users_name, users_lastname=users_lastname, id=id, home_phone=home_phone, work_phone=work_phone, mobile_phone=mobile_phone, phone2=phone2)
+
+    def get_users_from_view_page(self, index):
+        wd = self.app.wd
+        self.open_user_view_by_index(index)
+        text = wd.find_element_by_id("content").text
+        home_phone = re.search("H: (.*)", text).group(1)
+        work_phone = re.search("W: (.*)", text).group(1)
+        mobile_phone = re.search("M: (.*)", text).group(1)
+        phone2 = re.search("P: (.*)", text).group(1)
+        return Users(home_phone=home_phone, work_phone=work_phone, mobile_phone=mobile_phone, phone2=phone2)
