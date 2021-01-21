@@ -101,7 +101,6 @@ class UserHelper:
     def open_user_to_edit_by_index(self, index):
         wd = self.app.wd
         self.app.open_home_page()
-        print(index)
         wd.find_elements_by_xpath("//img[@title='Edit']")[index].click()
 
     def get_user_info_from_edit_page(self, index):
