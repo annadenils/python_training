@@ -28,6 +28,8 @@ class UserHelper:
         self.change_value("work", users.work_phone)
         self.change_value("fax", users.fax)
         self.change_value("email", users.email)
+        self.change_value("email2", users.email2)
+        self.change_value("email3", users.email3)
         self.change_value_select("bday", users.bday)
         self.change_value_select("bmonth", users.bmonth)
         self.change_value("byear", users.byear)
@@ -90,8 +92,9 @@ class UserHelper:
                 id = element.find_element_by_name("selected[]").get_attribute("id")
                 users_name = element.find_element_by_xpath("td[3]").text
                 users_lastname = element.find_element_by_xpath("td[2]").text
-                all_phones = element.find_elements_by_tag_name("td")[5].text.splitlines()
-                self.user_cashe.append(Users(id=id, users_name=users_name, users_lastname=users_lastname, home_phone=all_phones[0], mobile_phone=all_phones[1], work_phone=all_phones[2], phone2=all_phones[3]))
+                all_phones = element.find_elements_by_tag_name("td")[5].text
+                all_email = element.find_elements_by_tag_name("td")[4].text
+                self.user_cashe.append(Users(all_email_from_home_page=all_email, all_phones_from_home_page=all_phones, id=id, users_name=users_name, users_lastname=users_lastname))
         return list(self.user_cashe)
 
     def open_user_view_by_index(self, index):
@@ -114,7 +117,10 @@ class UserHelper:
         work_phone = wd.find_element_by_name("work").get_attribute("value")
         mobile_phone = wd.find_element_by_name("mobile").get_attribute("value")
         phone2 = wd.find_element_by_name("phone2").get_attribute("value")
-        return Users(users_name=users_name, users_lastname=users_lastname, id=id, home_phone=home_phone, work_phone=work_phone, mobile_phone=mobile_phone, phone2=phone2)
+        email = wd.find_element_by_name("email").get_attribute("value")
+        email2 = wd.find_element_by_name("email2").get_attribute("value")
+        email3 = wd.find_element_by_name("email3").get_attribute("value")
+        return Users(users_name=users_name, users_lastname=users_lastname, id=id, home_phone=home_phone, work_phone=work_phone, mobile_phone=mobile_phone, phone2=phone2, email=email, email2=email2, email3=email3)
 
     def get_users_from_view_page(self, index):
         wd = self.app.wd
