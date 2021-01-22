@@ -92,9 +92,10 @@ class UserHelper:
                 id = element.find_element_by_name("selected[]").get_attribute("id")
                 users_name = element.find_element_by_xpath("td[3]").text
                 users_lastname = element.find_element_by_xpath("td[2]").text
+                address_company = element.find_element_by_xpath("td[4]").text
                 all_phones = element.find_elements_by_tag_name("td")[5].text
                 all_email = element.find_elements_by_tag_name("td")[4].text
-                self.user_cashe.append(Users(all_email_from_home_page=all_email, all_phones_from_home_page=all_phones, id=id, users_name=users_name, users_lastname=users_lastname))
+                self.user_cashe.append(Users(all_email_from_home_page=all_email, all_phones_from_home_page=all_phones, address_company=address_company, id=id, users_name=users_name, users_lastname=users_lastname))
         return list(self.user_cashe)
 
     def open_user_view_by_index(self, index):
@@ -112,6 +113,7 @@ class UserHelper:
         self.open_user_to_edit_by_index(index)
         users_name = wd.find_element_by_name("firstname").get_attribute("value")
         users_lastname = wd.find_element_by_name("lastname").get_attribute("value")
+        address_company = wd.find_element_by_name("address").get_attribute("value")
         id = wd.find_element_by_name("id").get_attribute("value")
         home_phone = wd.find_element_by_name("home").get_attribute("value")
         work_phone = wd.find_element_by_name("work").get_attribute("value")
@@ -120,7 +122,7 @@ class UserHelper:
         email = wd.find_element_by_name("email").get_attribute("value")
         email2 = wd.find_element_by_name("email2").get_attribute("value")
         email3 = wd.find_element_by_name("email3").get_attribute("value")
-        return Users(users_name=users_name, users_lastname=users_lastname, id=id, home_phone=home_phone, work_phone=work_phone, mobile_phone=mobile_phone, phone2=phone2, email=email, email2=email2, email3=email3)
+        return Users(users_name=users_name, users_lastname=users_lastname, id=id, address_company=address_company, home_phone=home_phone, work_phone=work_phone, mobile_phone=mobile_phone, phone2=phone2, email=email, email2=email2, email3=email3)
 
     def get_users_from_view_page(self, index):
         wd = self.app.wd
