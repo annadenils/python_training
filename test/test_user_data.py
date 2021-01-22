@@ -1,3 +1,4 @@
+import re
 from model.users import Users
 
 def test_user_data_on_homepage(app):
@@ -10,3 +11,16 @@ def test_user_data_on_homepage(app):
     assert user_from_home_page.users_name == user_from_edit_page.users_name
     assert user_from_home_page.users_lastname == user_from_edit_page.users_lastname
     assert user_from_home_page.address_company == user_from_edit_page.address_company
+    assert user_from_home_page.all_phones_from_home_page == merge_phones_like_on_home_page(user_from_edit_page)
+    assert user_from_home_page.all_email_from_home_page == merge_email_like_on_home_page(user_from_edit_page)
+
+def clear(s):
+    return re.sub("[() -]", "", s)
+
+def merge_phones_like_on_home_page(users):
+    return "\n".join(filter(lambda x: x != "", map(lambda x: clear(x), filter(lambda x: x is not None, [users.home_phone, users.mobile_phone, users.work_phone, users.phone2]))))
+
+def merge_email_like_on_home_page(users):
+    return "\n".join(filter(lambda x: x != "", map(lambda x: clear(x), filter(lambda x: x is not None,
+                                                                              [users.email, users.email2,
+                                                                               users.email3]))))
