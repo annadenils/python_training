@@ -80,6 +80,7 @@ class GroupHelper:
             wd = self.app.wd
             self.open_groups_page()
             self.group_cache = []
+            import time; time.sleep(1)
             for element in wd.find_elements_by_css_selector("span.group"):
                 text = element.text
                 id = element.find_element_by_name("selected[]").get_attribute("value")
