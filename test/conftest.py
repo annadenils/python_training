@@ -6,11 +6,13 @@ fixture = None
 @pytest.fixture
 def app(request):
     global fixture
+    browser = request.config.getoption("--browser")
+    baseUrl = request.config.getoption("--baseUrl")
     if fixture is None:
-        fixture = Application()
+        fixture = Application(browser=browser, baseUrl=baseUrl)
     else:
         if not fixture.is_valid():
-            fixture = Application()
+            fixture = Application(browser=browser, baseUrl=baseUrl)
     fixture.session.ensure_login(login_name="admin", password="secret")
     return fixture
 
@@ -21,3 +23,7 @@ def stop(request):
         fixture.destroy()
     request.addfinalizer(fin)
     return fixture
+
+def pytest_addoption(parser):
+    parser.addoption("--browser", action="store", default="Firefox")
+    parser.addoption("--baseUrl", action="store", default="http://127.0.0.1/addressbook/index.php")
