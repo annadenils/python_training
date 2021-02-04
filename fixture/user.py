@@ -63,10 +63,33 @@ class UserHelper:
         wd = self.app.wd
         wd.find_elements_by_name("selected[]")[index].click()
 
+    def delete_user_by_id(self, id):
+        wd = self.app.wd
+        self.app.open_home_page()
+        self.select_user_by_id(id)
+        wd.find_element_by_xpath("(//input[@value='Delete'])").click()
+        wd.switch_to_alert().accept()
+        wd.find_element_by_css_selector("div.msgbox")
+        self.app.open_home_page()
+        self.user_cashe = None
+
+    def select_user_by_id(self, id):
+        wd = self.app.wd
+        wd.find_element_by_css_selector("input[id='%s']" % id).click()
+
     def edit_user_by_index(self, index, users):
         wd = self.app.wd
         self.app.open_home_page()
         wd.find_elements_by_xpath("//img[@title='Edit']")[index].click()
+        self.fill_user_form(users)
+        wd.find_element_by_name("update").click()
+        self.app.return_homepage()
+        self.user_cashe = None
+
+    def edit_user_by_id(self, id, users):
+        wd = self.app.wd
+        self.app.open_home_page()
+        wd.find_element_by_xpath(f"//a[contains(@href,'edit.php?id={id}')]").click()
         self.fill_user_form(users)
         wd.find_element_by_name("update").click()
         self.app.return_homepage()
