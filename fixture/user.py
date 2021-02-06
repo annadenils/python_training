@@ -3,6 +3,8 @@ from model.users import Users
 import re
 
 
+
+
 class UserHelper:
 
     def __init__(self, app):
@@ -155,3 +157,21 @@ class UserHelper:
         mobile_phone = re.search("M: (.*)", text).group(1)
         phone2 = re.search("P: (.*)", text).group(1)
         return Users(home_phone=home_phone, work_phone=work_phone, mobile_phone=mobile_phone, phone2=phone2)
+
+    def add_to_group(self, id, groupid):
+        wd = self.app.wd
+        self.select_user_by_id(id)
+        Select(wd.find_element_by_name('to_group')).select_by_value(f'{groupid}')
+        wd.find_element_by_xpath("(//input[@value='Add to'])").click()
+        self.app.open_home_page()
+
+    def del_from_group(self, group_id, user_id):
+        wd = self.app.wd
+        self.app.open_home_page()
+        Select(wd.find_element_by_name('group')).select_by_value(f'{group_id}')
+        self.select_user_by_id(user_id)
+        wd.find_element_by_xpath("(//input[@name='remove'])").click()
+        self.app.open_home_page()
+
+
+
