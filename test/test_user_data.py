@@ -27,10 +27,15 @@ def merge_email_like_on_home_page(users):
 
 def test_user_homepage_and_db(app, db):
     app.open_home_page()
-    user = Users(users_name="специальный юзер", users_lastname="Никалаев", home_phone="2345678",
-                  mobile_phone="89655783498", work_phone="812-567-90-89", phone2="812-789-56-37")
+    user = Users(users_name="Специальный", users_lastname="Специальнов", address_company="СПб, Мира ул. 6 - 56", home_phone="2345678", mobile_phone="89655783498", work_phone="812-567-90-89", phone2="812-789-56-37")
     if len(db.get_user_list()) == 0:
         app.user.add_new_user(user)
-    db_users = db.get_user_list()
-    ui_users = app.user.get_users_list()
-    assert sorted(db_users, key=Users.id_or_max) == sorted(ui_users, key=Users.id_or_max)
+    db_users = sorted(db.get_user_list(), key=Users.id_or_max)
+    ui_users = sorted(app.user.get_users_list(), key=Users.id_or_max)
+    for i in range(len(ui_users)):
+        assert ui_users[i].users_name == db_users[i].users_name
+        assert ui_users[i].users_lastname == db_users[i].users_lastname
+        assert ui_users[i].address_company == db_users[i].address_company
+        assert ui_users[i].all_phones_from_home_page == merge_phones_like_on_home_page(db_users[i])
+        assert ui_users[i].all_email_from_home_page == merge_email_like_on_home_page(db_users[i])
+    assert len(db_users) == len(ui_users)
