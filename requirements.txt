@@ -4,5 +4,3 @@ selenium
 jsonpickle
 pony
 pymysql
-allure-pytest
-lxml --install-option="--libxml2-version=2.9.2"
