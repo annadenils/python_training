@@ -58,7 +58,7 @@ def load_from_json(file):
     with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "data/%s.json" % file)) as f:
         return jsonpickle.decode(f.read())
 
-@pytest.fixture (scope="session")
+# @pytest.fixture (scope="session")
 def db(request):
     db_config = load_config(request.config.getoption("--target"))['db']
     dbfixture = DbFixture(host=db_config['host'], name=db_config['name'], user=db_config['user'], password=db_config['password'])
