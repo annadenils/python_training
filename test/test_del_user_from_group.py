@@ -1,7 +1,6 @@
 from fixture.orm import ORMFixture
 from model.users import Users
 from model.group import Group
-import random
 
 
 def test_del_user_from_group(app, db, orm):
@@ -16,10 +15,8 @@ def test_del_user_from_group(app, db, orm):
             if len(db.get_group_list()) == 0:
                 app.group.init_group(Group(group_name="test-test"))
             group = db.get_group_list()
-            groupid = random.choice(group).id
-            user_not_in_group = orm.get_users_not_in_group(Group(id=groupid))
-            orm_user = random.choice(user_not_in_group)
-            app.user.add_to_group(orm_user.id, groupid)
+            user_not_in_group = orm.get_users_not_in_group(group[0])
+            app.user.add_to_group(user_not_in_group[0].id, group[0].id)
             break
     for x in group:
         if orm.get_users_in_group(x) == []:

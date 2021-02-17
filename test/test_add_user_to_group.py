@@ -13,9 +13,7 @@ def test_add_user_to_group(app, db, orm):
     if len(db.get_group_list()) == 0:
         app.group.init_group(Group(group_name="test-test"))
     group = db.get_group_list()
-    groupid = random.choice(group).id
-    user_not_in_group = orm.get_users_not_in_group(Group(id=groupid))
-    orm_user = random.choice(user_not_in_group)
-    app.user.add_to_group(orm_user.id, groupid)
-    user_not_in_group_1 = orm.get_users_not_in_group(Group(id=groupid))
+    user_not_in_group = orm.get_users_not_in_group(group[0])
+    app.user.add_to_group(user_not_in_group[0].id, group[0].id)
+    user_not_in_group_1 = orm.get_users_not_in_group(Group(id=group[0].id))
     assert len(user_not_in_group) - 1 == len(user_not_in_group_1)
