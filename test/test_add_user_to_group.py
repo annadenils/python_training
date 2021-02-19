@@ -19,3 +19,5 @@ def test_add_user_to_group(app, db, orm):
         app.user.add_new_user(new_user)
         user_not_in_group = orm.get_users_not_in_group(group[0])
         app.user.add_to_group(user_not_in_group[0].id, group[0].id)
+    list_user = orm.get_users_in_group(group[0])
+    assert user_not_in_group[0] in list_user
