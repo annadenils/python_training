@@ -158,10 +158,10 @@ class UserHelper:
         phone2 = re.search("P: (.*)", text).group(1)
         return Users(home_phone=home_phone, work_phone=work_phone, mobile_phone=mobile_phone, phone2=phone2)
 
-    def add_to_group(self, id, groupid):
+    def add_to_group(self, user_id, group_id):
         wd = self.app.wd
-        self.select_user_by_id(id)
-        Select(wd.find_element_by_name('to_group')).select_by_value(f'{groupid}')
+        self.select_user_by_id(user_id)
+        Select(wd.find_element_by_name('to_group')).select_by_value(f'{group_id}')
         wd.find_element_by_xpath("(//input[@value='Add to'])").click()
         self.app.open_home_page()
 
