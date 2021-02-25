@@ -22,31 +22,3 @@ def test_add_user_to_group(app, db, orm):
         user_in_group = orm.get_users_in_group(x)
         assert user in user_in_group
         break
-
-
-    # else:
-    #     app.group.init_group(new_group)
-    #     groups = sorted(db.get_group_list(), key=Group.id_or_max)
-    #     group = groups[-1]
-    #     app.user.add_to_group(user.id, group.id)
-    #     user_in_group = orm.get_users_in_group(group)
-    #     assert user in user_in_group
-
-
-
-
-
-
-
-
-
-
-
-    # if user_not_in_group:
-    #     app.user.add_to_group(user_not_in_group[0].id, group[0].id)
-    # else:
-    #     app.user.add_new_user(new_user)
-    #     user_not_in_group = orm.get_users_not_in_group(group[0])
-    #     app.user.add_to_group(user_not_in_group[0].id, group[0].id)
-    # list_user = orm.get_users_in_group(group[0])
-    # assert user_not_in_group[0] in list_user
