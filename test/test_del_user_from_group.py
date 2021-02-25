@@ -21,9 +21,10 @@ def test_del_user_from_group(app, db, orm):
             app.user.add_to_group(orm_user, x)
             app.user.del_from_group(x.id, orm_user.id)
             assert len(x) == []
+            break
         else:
             user = orm.get_users_in_group(x)
             app.user.del_from_group(x.id, user[0].id)
             user1 = orm.get_users_in_group(x)
             assert len(user) - 1 == len(user1)
-        break
+            break

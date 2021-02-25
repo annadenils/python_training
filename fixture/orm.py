@@ -57,5 +57,11 @@ class ORMFixture:
         orm_group = list(select(g for g in ORMFixture.ORMGroup if g.id == group.id))[0]
         return self.convert_users_to_model(select(c for c in ORMFixture.ORMUsers if c.deprecated is None and orm_group not in c.groups))
 
+    def all_users_in_groups(self, groups):
+        for i in groups:
+            if len(self.get_users_not_in_group(i)) > 0:
+                return False
+        return True
+
     def destroy(self):
         self.connection.close()
